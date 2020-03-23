@@ -79,7 +79,6 @@ class ClockApp(QMainWindow):
     def timeToString(self, init = False):
         timestring = 'es ist '
         currentTime = time.localtime()
-        print(currentTime.tm_sec)
         # Mac OS App Nap slows counter down to 10 sec interval
         if currentTime.tm_sec > 15 and not init:
             return
