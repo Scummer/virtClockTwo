@@ -79,7 +79,9 @@ class ClockApp(QMainWindow):
     def timeToString(self, init = False):
         timestring = 'es ist '
         currentTime = time.localtime()
-        if currentTime.tm_sec and not init:
+        print(currentTime.tm_sec)
+        # Mac OS App Nap slows counter down to 10 sec interval
+        if currentTime.tm_sec > 15 and not init:
             return
         hourint = currentTime.tm_hour % 12
         minremainder = currentTime.tm_min % 5
@@ -97,7 +99,10 @@ class ClockApp(QMainWindow):
         if minremainder > 3:
             self.layout.itemAt(11, 0).childItems()[0].setBrush(Qt.black)
         if currentTime.tm_min > 24:
-            hourint += 1
+            if hourint == 11:
+                hourint = 0
+            else:
+                hourint += 1
         hour = {0: 'zwoelf', 1: 'eins', 2: 'zwei', 3: 'drei', 4: 'vier', 5: 'fuenf', 6: 'sechs', 7: 'sieben', 8: 'acht', 9: 'neun', 10: 'zehn', 11: 'elf'}
         if currentTime.tm_min in [0,1,2,3,4]:
             if hourint == 1:
